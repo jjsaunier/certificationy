@@ -23,5 +23,8 @@
     },
     "autoload": {
         "psr-4": { "Certificationy\\Component\\Certy\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Certificationy\\Bundle\\Certy\\Tests\\": "Tests/" }
     }
 }
