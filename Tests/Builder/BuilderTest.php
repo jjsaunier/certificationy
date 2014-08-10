@@ -9,7 +9,6 @@
 
 namespace Certificationy\Component\Certy\Tests\Builder;
 
-
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuild()
