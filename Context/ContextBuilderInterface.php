@@ -10,6 +10,12 @@
 namespace Certificationy\Component\Certy\Context;
 
 
-interface ContextBuilderInterface {
-
+interface ContextBuilderInterface
+{
+    /**
+     * @param array $conf
+     *
+     * @return CertificationContext
+     */
+    public function build(Array $conf);
 } 
