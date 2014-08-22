@@ -64,7 +64,7 @@ class Collector implements CollectorInterface
     /**
      * @param $certificationName
      *
-     * @return array|\Resource[]
+     * @return Resource[]
      */
     public function getFlattenResources($certificationName)
     {
@@ -104,5 +104,19 @@ class Collector implements CollectorInterface
     public function getCollectedProviders()
     {
         return $this->collectedProviders;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDirty()
+    {
+        return null !== $this->resources;
+    }
+
+    public function release()
+    {
+        $this->resources = null;
+        $this->collectedProviders = [];
     }
 }

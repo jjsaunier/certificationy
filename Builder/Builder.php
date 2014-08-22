@@ -96,13 +96,40 @@ class Builder implements BuilderInterface
         $certification = static::createCertification();
         $certification->setContext($context);
 
+        if (null !== $this->logger) {
+            $this->logger->debug(sprintf('Normalize %s', $context->getName()));
+        }
+
+        $flattenResources = $this->collector->getFlattenResources($context->getName());
+
+        //Should I throw Exception like NoResourcesCollectedException ?
+        if(empty($flattenResources)){
+            return $certification;
+        }
+
         $metrics = $certification->getMetrics();
 
         foreach ($this->collector->getFlattenResources($context->getName()) as $resource) {
+
+            if ($resource->getCertificationName() !== $context->getName()) {
+                continue;
+            }
+
             $resourceContent = $resource->getContent();
 
             if (empty($resourceContent)) {
                 continue;
+            }
+
+            if (null !== $this->logger) {
+                $this->logger->debug(
+                    sprintf(
+                        'Adding resource %s on certification %s',
+                        $resource->getResourceName(),
+                        $resource->getCertificationName()
+                    ),
+                    $resource->getContent()
+                );
             }
 
             $category = new Category();
@@ -144,6 +171,10 @@ class Builder implements BuilderInterface
      */
     public function build(CertificationContextInterface $context)
     {
+        if ($this->collector->isDirty()) {
+            $this->collector->release();
+        }
+
         if (null !== $this->logger) {
             $this->logger->debug(sprintf(
                 'Build certification %s',
