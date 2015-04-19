@@ -40,8 +40,9 @@ class Collector implements CollectorInterface
     }
 
     /**
-     * @param string $providerName
-     * @param array  $resources
+     * @param string              $providerName
+     * @param string              $certificationName
+     * @param ResourceInterface[] $resources
      */
     public function addResource($providerName, $certificationName, array $resources)
     {
@@ -64,7 +65,7 @@ class Collector implements CollectorInterface
     /**
      * @param $certificationName
      *
-     * @return Resource[]
+     * @return ResourceInterface[]
      */
     public function getFlattenResources($certificationName)
     {
@@ -83,7 +84,7 @@ class Collector implements CollectorInterface
     }
 
     /**
-     * @return Resource[]
+     * @return ResourceInterface[]
      */
     public function getResources()
     {
